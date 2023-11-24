@@ -1,17 +1,24 @@
 import React from 'react';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { Grid, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import ButtonBase from '@mui/material/ButtonBase';
 
 const ActorCard = ({ actor }) => {
-  const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/w500';
+    const navigate = useNavigate();
+    const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/w500';
+  const showActorMovies = () => {
+    navigate(`/actors/${actor.id}/movies`);
+  };
 
   return (
     <Grid item xs={3}>
-      <Paper elevation={3} sx={{ borderRadius: 10 }}>
-        <Card>
+      <ButtonBase onClick={showActorMovies} style={{ width: '100%', display:'block'}}>
+      <Paper elevation={3}>
+        <Box sx={{height:'100%'}}>
           <CardMedia
             component="img"
             height="300"
@@ -26,8 +33,9 @@ const ActorCard = ({ actor }) => {
               as {actor.character}
             </Typography>
           </CardContent>
-        </Card>
-      </Paper>
+        </Box>
+        </Paper>
+        </ButtonBase>
     </Grid>
   );
 };

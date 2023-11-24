@@ -11,7 +11,9 @@ import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg';
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
+import Spinner from '../spinner';
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 
 const formControl = 
@@ -25,6 +27,8 @@ export default function FilterMoviesCard(props) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
 
+
+  
   if (isLoading) {
     return <Spinner />;
   }
@@ -36,6 +40,7 @@ export default function FilterMoviesCard(props) {
   if (genres[0].name !== "All"){
     genres.unshift({ id: "0", name: "All" });
   }
+
 
   const handleChange = (e, type, value) => {
     e.preventDefault();
@@ -49,6 +54,31 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
+
+  const handleYearChange = (e) => {
+    handleChange(e, "year", e.target.value)
+  };
+
+  const handleSortRatingChange = (e) => {
+    props.onUserInput ("sortRating", e.target.checked)
+  };
+
+  const handleLanguageChange = (e) => {
+    handleChange(e, "language", e.target.value)
+  };
+
+  const languages = [
+    {code:"", name: "All Languages"},
+    {code:"en", name:"English"},
+    {code:"es", name:"Spanish"},
+    {code:"it", name:"Italian"},
+    {code:"ja", name:"Japanese"},
+    {code:"ko", name:"Korean"},
+    {code:"hi", name:"Hindi"},
+  ]
+
+
+
 
   return (
     <Card 
@@ -89,6 +119,42 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
+        <TextField
+      sx={{...formControl}}
+      id="filled-search"
+      label="Year Search"
+      type="search"
+      variant="filled"
+      value={props.yearFilter}
+      onChange={handleYearChange}
+    />
+    <FormControl sx={{...formControl}}>
+          <InputLabel id="language-label">Language</InputLabel>
+          <Select
+    labelId="language-label"
+    id="language-select"
+    defaultValue=""
+    value={props.languageFilter}
+    onChange={handleLanguageChange}
+  >
+    {languages.map((lang) => {
+              return (
+                <MenuItem key={lang.code} value={lang.code}>
+                  {lang.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+      <FormControlLabel
+      control={
+        <Checkbox
+        checked={props.sortRating}
+        onChange={handleSortRatingChange}
+        />
+      }
+      label="Sort by Rating"
+      />
       </CardContent>
       <CardMedia
         sx={{ height: 300 }}
