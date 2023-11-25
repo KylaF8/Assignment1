@@ -9,7 +9,6 @@ import ButtonBase from '@mui/material/ButtonBase';
 
 const ActorCard = ({ actor }) => {
     const navigate = useNavigate();
-    const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/w500';
   const showActorMovies = () => {
     navigate(`/actors/${actor.id}/movies`);
   };
@@ -22,7 +21,7 @@ const ActorCard = ({ actor }) => {
           <CardMedia
             component="img"
             height="300"
-            image={actor.profile_path ? `${IMAGE_BASE_URL}${actor.profile_path}` : 'path_to_default_image'}
+            image={actor.profile_path ? `${'http://image.tmdb.org/t/p/w500'}${actor.profile_path}` : 'path_to_default_image'}
             alt={actor.name}
           />
           <CardContent>

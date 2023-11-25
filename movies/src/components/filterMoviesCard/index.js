@@ -77,7 +77,9 @@ export default function FilterMoviesCard(props) {
     {code:"hi", name:"Hindi"},
   ]
 
-
+  const handleSortRatingAmountChange = (e) => {
+    props.onUserInput ("sortRatingAmount", e.target.checked)
+  };
 
 
   return (
@@ -95,7 +97,7 @@ export default function FilterMoviesCard(props) {
         <TextField
       sx={{...formControl}}
       id="filled-search"
-      label="Search field"
+      label="Search Movies"
       type="search"
       variant="filled"
       value={props.titleFilter}
@@ -154,6 +156,15 @@ export default function FilterMoviesCard(props) {
         />
       }
       label="Sort by Rating"
+      />
+      <FormControlLabel
+      control={
+        <Checkbox
+        checked={props.sortRatingAmount}
+        onChange={handleSortRatingAmountChange}
+        />
+      }
+      label="Sort by Rating Amount"
       />
       </CardContent>
       <CardMedia

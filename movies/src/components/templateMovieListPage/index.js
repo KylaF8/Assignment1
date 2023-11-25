@@ -3,6 +3,7 @@ import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
+import Pagination from "@mui/material/Pagination";
 
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
@@ -10,9 +11,13 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [yearFilter, setYearFilter] = useState("");
   const [sortRating, setSortRating] = useState(false);
   const [languageFilter, setLanguageFilter] = useState("");
+  const [sortRatingAmount, setSortRatingAmount] = useState(false);
 
-
-  console.log(movies)
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageMovies = 10;
+  const firstMovie = (currentPage-1) * pageMovies;
+  const lastMovie = firstMovie + pageMovies;
+  
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -33,18 +38,27 @@ function MovieListPageTemplate({ movies, title, action }) {
     if (sortRating) {
       displayedMovies.sort((a,b) => b.vote_average - a.vote_average);
     }
+
+    if (sortRatingAmount) {
+      displayedMovies.sort((a,b) => b.vote_count - a.vote_count);
+    }
     
-  
+  const currentMovies = displayedMovies.slice(firstMovie, lastMovie);
+
 
   const handleChange = (type, value) => {
+    setCurrentPage(1);
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
     else if (type === "year") setYearFilter(value);
     else if (type === "sortRating") setSortRating(value);
     else if (type === "language") setLanguageFilter(value);
-
-
+    else if (type === "sortRatingAmount") setSortRatingAmount(value);
   };
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value)
+  }
 
   return (
     <Grid container sx={{ padding: '20px' }}>
@@ -60,9 +74,23 @@ function MovieListPageTemplate({ movies, title, action }) {
             yearFilter={yearFilter}
             sortRating={sortRating}
             languageFilter={languageFilter}
+            sortRatingAmount={sortRatingAmount}
           />
         </Grid>
-        <MovieList action={action} movies={displayedMovies}></MovieList>
+        <MovieList action={action} movies={currentMovies}/>
+      </Grid>
+      <Grid item xs={15}>
+        <Pagination
+          count = {Math.ceil(displayedMovies.length/pageMovies)}
+          page = {currentPage}
+          onChange = {handlePageChange}
+          color = "secondary"
+          sx={{
+            '& .MuiPaginationItem-root': {
+              fontSize: '1.5rem'
+            }
+          }}
+        />
       </Grid>
     </Grid>
   );
