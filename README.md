@@ -42,60 +42,79 @@ In this repository I have my updated and commited progress of my ReactJS movie a
 
 +Pagination: https://mui.com/material-ui/react-pagination/
 
-
--------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------
 
 # Assignment 2 - Web API.
 
 Name: Kyla Franks
 
 ## Features.
-
-A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ + Added 4 new endpoints that can fetch TMDB, all have parameterised URLs.
+ + Connected frontend & backend apps so fully integrated, all API endpoints called from frontend to go to Web API.
+ + Simple signup & login, also included in the site header.
+ + Several routes protected so that they can only be seen once the user logs in.
+ + Validation of username and passwords, if wrong then error messages are displayed.
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
-
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
+- I created a '.env' file for my webpage.
 ______________________
-NODEENV=development
+NODE_ENV=development
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
+HOST=MyHost
+mongoDB=MyMongoURL
+REACT_APP_TMDB_KEY=MyReactKey
+secret=MyJWTSecret
 ______________________
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
 
-- /api/movies | GET | Gets a list of movies 
-- /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+- /movies - displays all published movies.
+- /movies/topRated - displays all the top rated movies.
+- /movies/trending - displays all the trending movies.
+- /movies/nowPlaying - displays all the now playing movies.
+- /actors/:actorId - displays a certain actor's ID.
+- /actors/:actorId/movies - displays all the main actor IDs in the movie that has been selected.
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+- This indicates that this path is part of an api |GET| /api
+- Gets the movies from the api |GET| /api/movies
+- Gets the movie data from TMDB |GET| /api/movies/tmdb
+- Gets the data about a specific movie from TMDB |GET| /api/movies/tmdb/movie
+- Gets the specific data for that movie id |GET| /api/movies/tmdb/movie/{movieId}
+- Gets the alternative titles to a movie |GET| /api/movies/tmdb/movie/{movieId}/getAltTitles
+- Gets the Watch Providers for a movie |GET| /api/movies/tmdb/movie/{movieId}/getWatchProviders
+- Gets the translations to a movie |GET| /api/movies/tmdb/movie/{movieId}/translations
+- Gets the trailer for a movie |GET| /api/movies/tmdb/movie/{movieId}/trailers
 
 ## Security and Authentication
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+Authentication/Security:
+- A middleware authentication function which uses JWT--JSON Web Tokens, that performs checks to see if the authorization header is present in the HTTP request, if not it indicates an error of its absence. It also parses the authorization header to extract the JWT. It uses the jwtwebtoken library to verify the authenticity of the JWT.
+- If the JWT is succesfully verified then it will decode the payload of the token. It uses the decoded information to look up the user in the database.
+- Passwords are encrypted
+- Authorization header in frontend API routes, that include an authetication token in the HTTP request
+
+ Protected Routes:
+- /reviews/form
+- /movies/favorites
+- /movies/upcoming
+- /reviews/:id
+- /movies/:id
+- /movies/topRated
+- /movies/trending
+- /movies/nowPlaying
+- /actors/:actorId/movies
+
 
 ## Integrating with React App
 
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
+I put the functions for fetching the tmdb endpoints in the backend, and call them from the frontend to display on the webpage.
 
 ## Independent learning (if relevant)
 
-Briefly explain any non-standard features developed for the app.   
+<iframe></iframe> To display the trailer on my page, by embedding the video on my movie details page. 
+Link: https://www.w3schools.com/html/html_youtube.asp
