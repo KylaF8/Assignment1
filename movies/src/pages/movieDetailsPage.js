@@ -3,11 +3,15 @@ import { useParams } from 'react-router-dom';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
 //import useMovie from "../hooks/useMovie";
-import { getMovie } from '../api/tmdb-api'
+import { getMovie } from '../api/tmdb-frontend-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
 import MovieCast from "../components/movieCast";
 import SimilarMovies from "../components/similarMovies";
+import AltTitles from "../components/altTitles";
+import WatchProviders from "../components/watchProviders";
+import Trailers from "../components/trailers";
+import Translations from "../components/translations";
 
 const MoviePage = (props) => {
   const { id } = useParams();
@@ -29,6 +33,10 @@ const MoviePage = (props) => {
         <>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+            <AltTitles movieId={id} />
+            <Translations movieId={id} />
+            <Trailers movieId={id} />
+            <WatchProviders movieId={id} />
             <MovieCast movieId={id} />
             <SimilarMovies movieId={id} />
           </PageTemplate>

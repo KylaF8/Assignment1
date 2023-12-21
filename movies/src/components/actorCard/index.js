@@ -3,15 +3,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Grid, Paper } from '@mui/material';
+import { Button, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ButtonBase from '@mui/material/ButtonBase';
+
 
 const ActorCard = ({ actor }) => {
     const navigate = useNavigate();
   const showActorMovies = () => {
     navigate(`/actors/${actor.id}/movies`);
   };
+
+
 
   return (
     <Grid item xs={3}>
@@ -40,3 +43,5 @@ const ActorCard = ({ actor }) => {
 };
 
 export default ActorCard;
+
+

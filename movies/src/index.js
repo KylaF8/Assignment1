@@ -22,6 +22,7 @@ import AuthContextProvider from "./contexts/authContext";
 
 
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/movies/trending" element={<TrendingMoviesPage />} />
           <Route path="/movies/nowPlaying" element={<NowPlayingMoviesPage />} />
           <Route path="/actors/:actorId/movies" element={<ActorPage />} />
+          
 
           </Route>
         </Routes>
