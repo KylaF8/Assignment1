@@ -61,7 +61,7 @@ Name: Kyla Franks
 
 ## API Configuration
 
-- I created a '.env' file for my webpage.
+I created a '.env' file for my webpage with the following variables, before running the API.
 ______________________
 NODE_ENV=development
 PORT=8080
@@ -112,7 +112,7 @@ Authentication/Security:
 
 ## Integrating with React App
 
-I put the functions for fetching the tmdb endpoints in the backend, and call them from the frontend to display on the webpage.
+The frontend code uses the functions to fetch data from the Express backend, which calls the TMDB API to get information about the requested resource. The Express router endpoint acts as a middleware to handle the request and response between the frontend and the TMDB API.
 
 ## Independent learning (if relevant)
 
